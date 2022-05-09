@@ -225,6 +225,11 @@ startButton.onclick = function () {
         return
     }
 
+    if (messageTextTextarea.value.length < 200 || messageTextTextarea.value > 6000) {
+        alert(`Длина текста должна быть в пределах от 200 до 6000 символов! Текущий показатель - ${messageTextTextarea.value.length}`)
+        return
+    }
+
     let shouldStart = confirm(`Подтвердите запуск`);
 
     if (shouldStart) {

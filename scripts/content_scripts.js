@@ -39,8 +39,6 @@ window.onload = function () {
                     }
 
                 case "/clagt/first_emf.php":
-                    alert('hi');
-
                     if (result.emailingType !== "Bulk Send") {return}
 
                     let pages = [...document.querySelectorAll("a")].filter(a => a.textContent.includes("Send Another Mail"))[Symbol.iterator]();
