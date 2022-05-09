@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "CharmDate Email Sender",
+  "description": "Email Sending Automation for CharmDate",
+  "version": "1.0.0",
+  "author": "Artem LD31D",
+
+  "incognito": "not_allowed",
+  "offline_enabled": false,
+
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "*://www.charmdate.com/*"
+  ],
+
+  "externally_connectable": {
+    "ids": ["*"],
+    "matches": ["*://www.charmdate.com/*"],
+    "accepts_tls_channel_id": true
+  },
+
+  "icons": {
+    "64": "images/favicon.png"
+  },
+
+  "action": {
+    "default_icon": "images/favicon.png",
+    "default_popup": "html/popup.html"
+  },
+
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+
+  "content_scripts": [
+     {
+       "matches": [
+         "*://www.charmdate.com/clagt/woman/women_preview_profile.php?womanid=*",
+         "*://www.charmdate.com/clagt/cupidnote/search_result.php?*",
+         "*://www.charmdate.com/clagt/first_emf.php?*"
+       ],
+       "js": ["scripts/content_scripts.js"],
+       "match_about_blank": true
+     }
+  ]
+}

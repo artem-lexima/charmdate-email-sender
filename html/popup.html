@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html style="min-width:150px;min-height:150px;" lang="ru">
+  <head>
+    <link rel="stylesheet" href="../styles/popup.css">
+    <link rel="stylesheet" href="../styles/switch.css">
+    <title>Popup</title>
+  </head>
+
+  <body>
+    <br>
+    <label class="switch centered">
+      <input type="checkbox" id="status-checkbox">
+      <span class="slider round"></span>
+    </label>
+    <br>
+    <br>
+    <label class="centered" style="left: 10%;">
+      <select id="emailing-type" size="1">
+        <option value="Bulk Send">Bulk Send</option>
+        <option value="Bulk Response">Bulk Response</option>
+      </select>
+    </label>
+    <br>
+
+    <label class="centered" style="left: 10%;">
+      DELAY: <input id="delay-input" type="number" placeholder="delay" min="0" max="60">
+    </label>
+
+    <script type="text/javascript" src="../scripts/popup.js"></script>
+  </body>
+</html>

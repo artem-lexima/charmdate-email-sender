@@ -1,0 +1,28 @@
+body {
+  background: #2a2a2b;
+  color: #fff;
+  font-family: cursive;
+}
+
+select {
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.centered {
+  position: relative; /* or relative */
+  top: 50%;
+  left: 30%;
+  text-align: center;
+}
+
+#delay-input {
+  position: relative;
+
+  border-radius: 7px;
+  border: none;
+
+  left: 7%;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
