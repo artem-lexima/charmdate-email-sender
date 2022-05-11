@@ -1,17 +1,24 @@
 function emfSender2() {
+    let maleCountry = document.querySelector('td[width="183"] font').innerText.split('\n')[3];
+    document.querySelector('form[name="form1"]').action = `emf_sender3.php?country=${maleCountry}`;
+
     document.querySelector('input[value="Next >>"]').click();
 }
 
 function emfSender3() {
+    let maleCountry = (new URLSearchParams(document.location.search)).get('country');
+    document.querySelector('form[name="form1"]').action = `emf_sender4.php?country=${maleCountry}`;
+
     document.querySelector('select[name="rmethod"]').value = '1';
     document.querySelector('textarea[name="lady_tel"]').value = document.querySelectorAll('td[bgcolor="#F9F9F9"]')[11].innerText.replace('  +', '')
     document.querySelector('input[value="Next"]').click()
 }
 
 function emfSender4(mailData) {
+    let maleCountry = (new URLSearchParams(document.location.search)).get('country');
     let maleName = document.querySelector('td[width="95%"]').innerText.split('\n')[0].match('( [A-Za-z]{1,20} )')[0].trim();
 
-    document.getElementById('TextArea1').value = mailData.messageText.replace("{{MALE_NAME}}", maleName);
+    document.getElementById('TextArea1').value = mailData.messageText.replace("{name}", maleName).replace("{country}", maleCountry);
 
     // Add Free Photo
     if (mailData.freePhoto) {
