@@ -68,6 +68,30 @@ function emfSender4(mailData) {
             }, 4000*(index+1))
         }
     }
+
+    // Add video
+    if (mailData.video) {
+        mailData.video = mailData.video.replace('https:', document.location.protocol)
+
+        setTimeout(() => {
+            document.getElementById('ext-gen8').click()
+        }, 14000)
+
+        setTimeout(() => {
+            [...document.querySelectorAll('#img-detail-panel2 .thumb-wrap .thumb div')].filter(
+                    (item, index) => item.innerText && item.innerText.search('([0-9]+ Videos)') === -1 && mailData.videoAlbum.includes(item.innerText.replace("...", "").trim())
+            )[0].click()
+        }, 15000)
+
+        setTimeout(() => {
+            if (document.querySelector(`img[src="${mailData.video.replace(document.location.origin, '')}"]`)) {
+                document.querySelector(`img[src="${mailData.video.replace(document.location.origin, '')}"]`).click()
+                document.getElementById('ext-gen255').click()
+            } else {
+                document.getElementById('ext-gen263').click()
+            }
+        }, 17000)
+    }
 }
 
 function emfError() {

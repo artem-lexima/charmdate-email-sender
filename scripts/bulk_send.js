@@ -1,6 +1,10 @@
 let startButton = document.getElementById('start-button');
 let messageTextTextarea = document.getElementById('message-text-textarea');
 
+let video = null;
+let videoAlbum = null;
+let videoButton = document.getElementById('video-button');
+
 let freePhoto = null;
 let freePhotoAlbum = null;
 let freePhotoButton = document.getElementById('free-photo-button');
@@ -34,10 +38,10 @@ messageTextTextarea.oninput = function () {
     }
 }
 
-function openAlbum(albumId, albumName) {
+function openAlbum(albumParams, albumName) {
     popupContentBlock.innerHTML = '';
 
-    let url = `https://www.charmdate.com/clagt/woman/women_album_list.php?albumid=${albumId}&womanid=${ladyId}`;
+    let url = `https://www.charmdate.com/clagt/woman/women_album_list.php${albumParams}`;
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -108,8 +112,8 @@ freePhotoButton.onclick = function () {
                 let div = document.createElement('div');
                 div.className = 'popup-block';
                 div.innerHTML = albumName + "<br>";
-                div.dataset.albumId = new URL(element.querySelector('img').parentElement.href).searchParams.get('albumid');
-                div.onclick = function () {openAlbum(div.dataset.albumId, albumName)}
+                div.dataset.albumParams = element.querySelector('img').parentElement.search;
+                div.onclick = function () {openAlbum(div.dataset.albumParams, albumName)}
 
                 let img = document.createElement('img');
                 img.className = 'popup-img';
@@ -125,10 +129,10 @@ freePhotoButton.onclick = function () {
     xhr.send();
 }
 
-function openPrivatAlbum(albumId, albumName) {
+function openPrivatAlbum(albumParams, albumName) {
     popupContentBlock.innerHTML = '';
 
-    let url = `https://www.charmdate.com/clagt/woman/private_album_list.php?albumid=${albumId}&womanid=${ladyId}`;
+    let url = `https://www.charmdate.com/clagt/woman/private_album_list.php${albumParams}`;
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", url);
@@ -202,8 +206,8 @@ privatPhotosButton.onclick = function () {
                 let div = document.createElement('div');
                 div.className = 'popup-block';
                 div.innerHTML = albumName + "<br>";
-                div.dataset.albumId = new URL(element.querySelector('img').parentElement.href).searchParams.get('albumid');
-                div.onclick = function () {openPrivatAlbum(div.dataset.albumId, albumName)}
+                div.dataset.albumParams = element.querySelector('img').parentElement.search;
+                div.onclick = function () {openPrivatAlbum(div.dataset.albumParams, albumName)}
 
                 let img = document.createElement('img');
                 img.className = 'popup-img';
@@ -215,6 +219,91 @@ privatPhotosButton.onclick = function () {
 
         }
     };
+
+    xhr.send();
+}
+
+function openVideoAlbum(albumParams, albumName) {
+    popupContentBlock.innerHTML = '';
+
+    let url = `https://www.charmdate.com/clagt/woman/short_video_album_list.php${albumParams}`;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState === 4 && xhr.status === 200) {
+            let template = document.implementation.createHTMLDocument();
+            template.body.innerHTML = xhr.responseText;
+
+            for (let element of template.querySelectorAll('td[width="25%"] td[height="90"] a img')){
+                let div = document.createElement('div');
+                div.className = 'popup-block';
+                div.innerHTML = "<br>";
+                div.dataset.url = "https://www.charmdate.com" + element.getAttribute('src');
+                div.onclick = function () {
+                    video = "https://www.charmdate.com" + element.getAttribute('src').split('?')[0];
+                    videoAlbum = albumName;
+                    videoButton.setAttribute('disabled', true);
+
+                    let img = document.createElement('img');
+                    img.src = video;
+                    img.onclick = function () {
+                        video = null;
+                        videoAlbum = null;
+                        videoButton.removeAttribute('disabled');
+                        img.remove();
+                    }
+
+                    document.getElementById('video').appendChild(img);
+
+                    PopUpHide()
+                }
+
+                let img = document.createElement('img');
+                img.className = 'popup-img';
+                img.src = "https://www.charmdate.com" + element.getAttribute('src');
+
+                div.appendChild(img);
+                popupContentBlock.appendChild(div);
+            }
+        }
+    }
+
+    xhr.send();
+}
+
+videoButton.onclick = function () {
+    PopUpShow()
+
+    let url = `https://www.charmdate.com/clagt/woman/short_video_list.php?womanid=${ladyId}`;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let template = document.implementation.createHTMLDocument();
+            template.body.innerHTML = xhr.responseText;
+
+            for (let element of template.querySelectorAll('td[width="25%"]')) {
+                let albumName = element.querySelector('td.albumfont').innerText;
+
+                let div = document.createElement('div');
+                div.className = 'popup-block';
+                div.innerHTML = albumName + "<br>";
+                div.dataset.albumParams = element.querySelector('img').parentElement.search;
+                div.onclick = function () {openVideoAlbum(div.dataset.albumParams, albumName)}
+
+                let img = document.createElement('img');
+                img.className = 'popup-img';
+                img.src = "https://www.charmdate.com" + element.querySelector('img').getAttribute('src');
+
+                div.appendChild(img);
+                popupContentBlock.appendChild(div);
+            }
+
+        }
+    }
 
     xhr.send();
 }
@@ -243,7 +332,9 @@ startButton.onclick = function () {
                 'freePhoto': freePhoto,
                 'freePhotoAlbum': freePhotoAlbum,
                 'privatPhotos': privatPhotos,
-                'privatPhotoAlbums': privatPhotoAlbums
+                'privatPhotoAlbums': privatPhotoAlbums,
+                'video': video,
+                'videoAlbum': videoAlbum
             }
         }, function() {});
 
