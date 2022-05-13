@@ -26,3 +26,7 @@ function replyPage(mailData) {
         }, 3000)
     }
 }
+
+function sayHiError () {
+    if (document.location.pathname === "/clagt/cupidnote/error_msg.php") {window.close()}
+}

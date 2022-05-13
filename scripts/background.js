@@ -48,6 +48,13 @@ function bulkResponse(tab, mailData, delay) {
 					args: [mailData]
 				}
 			)
+		case "https://www.charmdate.com/clagt/cupidnote/error_msg.php":
+			chrome.scripting.executeScript(
+				{
+					target: {'tabId': tab.id},
+					func: sayHiError
+				}
+			)
 	}
 }
 

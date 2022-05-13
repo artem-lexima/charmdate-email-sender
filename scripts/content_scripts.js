@@ -31,6 +31,8 @@ window.onload = function () {
 
                     ids = Array.from(ids)
 
+                    setTimeout(() => {alert(`Done! You’ve just sent ${ids.length+1} emails successfully`)}, result.delay * 1000 * (ids.length+1))
+
                     for (let index = 0; index < ids.length; index++) {
                         setTimeout(() => {
                             let page = "https://www.charmdate.com/clagt/cupidnote/reply2.php?noteid=" + ids[index].innerText.trim().replace(' ', '');
@@ -47,6 +49,8 @@ window.onload = function () {
                     chrome.runtime.sendMessage({text: "openTab", detail: {url: page}}, function(response) {});
 
                     pages = Array.from(pages)
+
+                    setTimeout(() => {alert(`Done! You’ve just sent ${pages.length+1} emails successfully`)}, result.delay * 1000 * (pages.length+1))
 
                     for (let index = 0; index < pages.length; index++) {
                         setTimeout(() => {
