@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function(){
           if (result.emailingType) {
               emailingType.value = result.emailingType;
           } else {
-              chrome.storage.local.set({emailingType: "Bulk Send"}, function() {});
-              emailingType.value = "Bulk Send";
+              chrome.storage.local.set({emailingType: "First EMF Mail"}, function() {});
+              emailingType.value = "First EMF Mail";
           }
 
           if (result.delay) {

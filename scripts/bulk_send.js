@@ -304,7 +304,7 @@ videoButton.onclick = function () {
 
         }
     }
-
+    
     xhr.send();
 }
 
@@ -314,7 +314,7 @@ startButton.onclick = function () {
         return
     }
 
-    if (messageTextTextarea.value.length < 200 || messageTextTextarea.value > 6000 || !messageTextTextarea.value.includes('{name}') || !messageTextTextarea.value.includes('{country}')) {
+    if (messageTextTextarea.value.length < 200 || messageTextTextarea.value > 6000 || !messageTextTextarea.value.includes('{name}')) {
         alert(
             "Oops! It seems you didn't take into account the requirements at the top of this page and below the text input field. \n\nPlease correct the mistakes and try again."
         )

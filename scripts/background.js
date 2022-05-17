@@ -64,9 +64,9 @@ function onTabsUpdateListener(tabId, changeInfo, tab) {
 	}
 
 	chrome.storage.local.get(['emailingType', 'mailData', 'delay'], function(result) {
-		if (result.emailingType === "Bulk Send") {
+		if (result.emailingType === "First EMF Mail") {
 			bulkSend(tab, result.mailData, result.delay)
-		} else if (result.emailingType === "Bulk Response") {
+		} else if (result.emailingType === "Say Hi") {
 			bulkResponse(tab, result.mailData, result.delay)
 		}
 	})

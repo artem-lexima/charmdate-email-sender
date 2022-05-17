@@ -12,17 +12,17 @@ window.onload = function () {
                     let shouldStart = confirm(`Хотите запустить рассылку '${result.emailingType}'?`);
 
                     if (shouldStart) {
-                        if (result.emailingType === "Bulk Send") {
+                        if (result.emailingType === "First EMF Mail") {
                             let urlToRedirect = chrome.runtime.getURL('../html/bulk-send.html') + `?ladyId=${ladyId}`;
                             chrome.runtime.sendMessage({text: "openTab", detail: {url: urlToRedirect}}, function(response) {});
-                        } else if (result.emailingType === "Bulk Response") {
+                        } else if (result.emailingType === "Say Hi") {
                             let urlToRedirect = chrome.runtime.getURL('../html/bulk-response.html') + `?ladyId=${ladyId}`;
                             chrome.runtime.sendMessage({text: "openTab", detail: {url: urlToRedirect}}, function(response) {});
                         }
                     }
 
                 case "/clagt/cupidnote/search_result.php":
-                    if (result.emailingType !== "Bulk Response") {return}
+                    if (result.emailingType !== "Say Hi") {return}
 
                     let ids = document.querySelectorAll('table#DataGrid1 tbody tr td:nth-child(2)')[Symbol.iterator]();
 
@@ -41,7 +41,7 @@ window.onload = function () {
                     }
 
                 case "/clagt/first_emf.php":
-                    if (result.emailingType !== "Bulk Send") {return}
+                    if (result.emailingType !== "First EMF Mail") {return}
 
                     let pages = [...document.querySelectorAll("a")].filter(a => a.textContent.includes("Send Another Mail"))[Symbol.iterator]();
 

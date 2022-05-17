@@ -1,6 +1,6 @@
 function replyPage(mailData) {
     let maleName = document.querySelector('table[id="womanreply"] td[width="84%"]').innerText.split('\n')[1].match('To: [A-Za-z]{1,20}')[0].split(' ')[1].trim();
-    document.querySelector('textarea[name="replymsg"]').value = mailData.messageText.replace("{name}", maleName);
+    document.querySelector('textarea[name="replymsg"]').value = mailData.messageText.replaceAll("{name}", maleName);
 
     // Add Free Photo
     if (mailData.freePhoto) {

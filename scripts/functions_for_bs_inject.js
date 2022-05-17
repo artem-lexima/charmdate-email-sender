@@ -18,12 +18,12 @@ function emfSender4(mailData) {
     let maleCountry = (new URLSearchParams(document.location.search)).get('country');
     let maleName = document.querySelector('td[width="95%"]').innerText.split('\n')[0].match('( [A-Za-z]{1,20} )')[0].trim();
 
-    document.getElementById('TextArea1').value = mailData.messageText.replace("{name}", maleName);
+    document.getElementById('TextArea1').value = mailData.messageText.replaceAll("{name}", maleName);
 
     if (!!maleCountry) {
-        document.getElementById('TextArea1').value = document.getElementById('TextArea1').value.replace("{country}", maleCountry)
+        document.getElementById('TextArea1').value = document.getElementById('TextArea1').value.replaceAll("{country}", maleCountry)
     } else {
-        document.getElementById('TextArea1').value = document.getElementById('TextArea1').value.replace("{country}", "")
+        document.getElementById('TextArea1').value = document.getElementById('TextArea1').value.replaceAll("{country}", "")
     }
 
     // Add Free Photo
